@@ -24,9 +24,10 @@ export async function fetchMessages(
 }
 
 // Opens (or fetches) a conversation with a seller about a listing. Used by the
-// "Chat với người bán" button on ListingDetail.
+// "Chat với người bán" button on ListingDetail. Body matches chat-service:
+// { sellerId, listingId? }.
 export async function openConversation(params: {
-  peerId: string;
+  sellerId: string;
   listingId?: string;
 }): Promise<Conversation> {
   const res = await chatClient.post<Conversation>('/conversations', params);
