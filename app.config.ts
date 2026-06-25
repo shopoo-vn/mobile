@@ -57,7 +57,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   orientation: 'portrait',
   scheme: 'shopoo',
   userInterfaceStyle: 'automatic',
-  newArchEnabled: false,
   splash: {
     resizeMode: 'contain',
     backgroundColor: '#ffffff',
