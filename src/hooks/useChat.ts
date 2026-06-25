@@ -32,7 +32,7 @@ export function useMessages(conversationId: string) {
       if (incoming.conversationId !== conversationId) return;
       qc.setQueryData<Message[]>(
         queryKeys.messages(conversationId),
-        (prev = []) => {
+        (prev: Message[] = []) => {
           // Reconcile optimistic echo by clientMsgId, else append.
           const idx = incoming.clientMsgId
             ? prev.findIndex((m) => m.clientMsgId === incoming.clientMsgId)
