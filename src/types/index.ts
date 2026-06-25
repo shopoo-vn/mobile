@@ -43,6 +43,13 @@ export interface Listing {
   updatedAt: string;
 }
 
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  parentId: string | null;
+}
+
 // Standard list envelope used by paginated endpoints.
 export interface Paginated<T> {
   items: T[];
