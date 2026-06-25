@@ -1,5 +1,10 @@
 import { listingClient } from './client';
-import { Listing, ListingCondition, Paginated } from '@/types';
+import { Category, Listing, ListingCondition, Paginated } from '@/types';
+
+export async function fetchCategories(): Promise<Category[]> {
+  const res = await listingClient.get<Category[]>('/categories');
+  return res.data;
+}
 
 export type ListingSort = 'newest' | 'price_asc' | 'price_desc';
 
