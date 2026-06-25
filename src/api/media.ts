@@ -29,15 +29,21 @@ export async function uploadImage(
     type,
   } as unknown as Blob);
 
-  const res = await mediaClient.post<UploadedMedia>('/media', form, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-    onUploadProgress: (e) => {
-      if (onProgress && e.total) {
-        onProgress(e.loaded / e.total);
-      }
+  // Media Service: POST /media/upload (field "file") -> { id, urls: {thumb,medium,full} }.
+  const res = await mediaClient.post<{ id: string; urls?: Record<string, string> }>(
+    '/media/upload',
+    form,
+    {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress: (e) => {
+        if (onProgress && e.total) {
+          onProgress(e.loaded / e.total);
+        }
+      },
     },
-  });
-  return res.data;
+  );
+  const urls = res.data.urls ?? {};
+  return { id: res.data.id, url: urls.medium ?? urls.full ?? urls.thumb ?? '' };
 }
 
 export async function uploadImages(
