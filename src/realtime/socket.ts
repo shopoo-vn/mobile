@@ -48,8 +48,9 @@ export function connectSocket(): void {
     useSocketStore.getState().setStatus('connecting'),
   );
 
-  socket.on('message:new', (message: Message) => {
-    messageHandlers.forEach((h) => h(message));
+  // chat-service emits { message }; unwrap to the bare Message for handlers.
+  socket.on('message:new', (payload: { message: Message }) => {
+    messageHandlers.forEach((h) => h(payload.message));
   });
 }
 
